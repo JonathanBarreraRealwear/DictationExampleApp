@@ -6,7 +6,6 @@ import android.provider.Settings
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
-import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -20,38 +19,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun asyncDictation(v: View) {
-        async_button.isEnabled = false
-        continuous_dictation.isEnabled = false
-        stop_button.isEnabled = false
-        default_dictation_button.isEnabled = false
-
-        val intent = createRecognizerIntent()
-        intent.putExtra(EXTRA_DICTATION_TYPE, ASYNC_DICTATION)
-        startListening(intent)
-    }
-
     fun startDictation(v: View) {
-        async_button.isEnabled = false
-        continuous_dictation.isEnabled = false
-        stop_button.isEnabled = true
+        start_button.isEnabled = false
         default_dictation_button.isEnabled = false
 
         val intent = createRecognizerIntent()
-        intent.putExtra(EXTRA_DICTATION_TYPE, CONTINUOUS_DICTATION)
-        startListening(intent)
-    }
-
-    fun stopDictation(v: View) {
-        async_button.isEnabled = true
-        continuous_dictation.isEnabled = true
-        stop_button.isEnabled = false
-        default_dictation_button.isEnabled = true
-
-        mSpeechRecognizer.destroy()
-    }
-
-    private fun startListening(intent: Intent) {
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
         mSpeechRecognizer.setRecognitionListener(TestListener())
         mSpeechRecognizer.startListening(intent)
@@ -66,9 +38,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val EXTRA_DICTATION_TYPE = "extra_dictation_type"
-        private const val ASYNC_DICTATION = 0
-        private const val CONTINUOUS_DICTATION = 1
         private fun createRecognizerIntent(): Intent {
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             intent.putExtra(
@@ -79,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    inner class TestListener: RecognitionListener {
+    inner class TestListener : RecognitionListener {
         override fun onReadyForSpeech(p0: Bundle?) {
             Log.d("TestListener", "onReadyForSpeech called.")
         }
@@ -97,9 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onEndOfSpeech() {
-            async_button.isEnabled = true
-            continuous_dictation.isEnabled = true
-            stop_button.isEnabled = false
+            start_button.isEnabled = true
             default_dictation_button.isEnabled = true
 
             Log.d("TestListener", "onEndOfSpeech called.")
@@ -126,17 +93,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         private fun setResultsText(bundle: Bundle) {
-            val results = bundle.get(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
-            var text = results[0]
-
-            text = if (results.size > 1) {
-                TextUtils.join(" ", results)
-            } else {
-                results[0]
-            }
-
+            val results = bundle.get(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<*>
+            val text = results[0].toString()
             dictation_textview.text = text
-
         }
 
         override fun onEvent(p0: Int, p1: Bundle?) {

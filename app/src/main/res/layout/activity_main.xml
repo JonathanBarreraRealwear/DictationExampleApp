@@ -7,49 +7,26 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/async_button"
+        android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:text="Async Dictation"
-        android:onClick="asyncDictation"
-        app:layout_constraintEnd_toStartOf="@id/continuous_dictation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <Button
-        android:id="@+id/continuous_dictation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:text="Start Dictation"
         android:onClick="startDictation"
-        app:layout_constraintEnd_toStartOf="@id/stop_button"
-        app:layout_constraintStart_toEndOf="@id/async_button"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <Button
-        android:id="@+id/stop_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:text="Stop Dictation"
-        android:enabled="false"
-        android:onClick="stopDictation"
+        android:text="Start Dictation"
         app:layout_constraintEnd_toStartOf="@id/default_dictation_button"
-        app:layout_constraintStart_toEndOf="@id/continuous_dictation"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/default_dictation_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:text="Current Default"
         android:onClick="showCurrentDefaultDictation"
+        android:text="Current Default"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/stop_button"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toEndOf="@id/start_button"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dictation_textview"
@@ -59,5 +36,5 @@
         android:text="Hello World!"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/async_button" />
+        app:layout_constraintTop_toBottomOf="@id/start_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
