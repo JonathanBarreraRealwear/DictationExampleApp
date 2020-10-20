@@ -1,5 +1,6 @@
 package com.realwear.dictationtestapp
 
+import android.Manifest.permission
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -9,6 +10,7 @@ import android.speech.SpeechRecognizer
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +19,14 @@ class MainActivity : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        // Request permissions needed for dictation.
+        ActivityCompat.requestPermissions(
+            this@MainActivity,
+            arrayOf(permission.RECORD_AUDIO, permission.INTERNET),
+            5
+        )
     }
 
     fun startDictation(v: View) {
