@@ -73,38 +73,40 @@ class MainActivity : AppCompatActivity() {
      * from RecognitionService.
      */
     inner class TestListener : RecognitionListener {
+        val TAG = "TestListener"
+
         override fun onReadyForSpeech(p0: Bundle?) {
-            Log.d("TestListener", "onReadyForSpeech called.")
+            Log.d(TAG, "onReadyForSpeech called.")
             Toast.makeText(applicationContext, "Listening...", Toast.LENGTH_SHORT).show()
         }
 
         override fun onBeginningOfSpeech() {
-            Log.d("TestListener", "onBeginningOfSpeech called.")
+            Log.d(TAG, "onBeginningOfSpeech called.")
         }
 
         override fun onRmsChanged(p0: Float) {
-            Log.d("TestListener", "onRmsChanged called.")
+            Log.d(TAG, "onRmsChanged called.")
         }
 
         override fun onBufferReceived(p0: ByteArray?) {
-            Log.d("TestListener", "onBufferReceived called.")
+            Log.d(TAG, "onBufferReceived called.")
         }
 
         override fun onEndOfSpeech() {
             start_button.isEnabled = true
             default_dictation_button.isEnabled = true
 
-            Log.d("TestListener", "onEndOfSpeech called.")
+            Log.d(TAG, "onEndOfSpeech called.")
             Toast.makeText(applicationContext, "Dictation finished.", Toast.LENGTH_SHORT).show()
         }
 
         override fun onError(p0: Int) {
-            Log.e("TestListener", "Error: $p0")
+            Log.e(TAG, "Error: $p0")
         }
 
         override fun onResults(p0: Bundle?) {
             if (p0 == null) {
-                Log.d("TestListener", "onResults called with null.")
+                Log.d(TAG, "onResults called with null.")
             } else {
                 setResultsText(p0)
             }
@@ -112,7 +114,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPartialResults(p0: Bundle?) {
             if (p0 == null) {
-                Log.d("TestListener", "onPartialResults called with null.")
+                Log.d(TAG, "onPartialResults called with null.")
             } else {
                 setResultsText(p0)
             }
@@ -128,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onEvent(p0: Int, p1: Bundle?) {
-            Log.d("TestListener", "onEvent called.")
+            Log.d(TAG, "onEvent called.")
         }
     }
 }
