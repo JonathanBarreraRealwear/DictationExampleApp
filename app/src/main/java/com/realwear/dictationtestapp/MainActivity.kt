@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
+/**
+ * Main Activity of the Dictation test app.
+ */
 class MainActivity : AppCompatActivity() {
     private lateinit var mSpeechRecognizer: SpeechRecognizer
 
@@ -29,6 +32,9 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Method to start dictation with a new SpeechRecognizer.
+     */
     fun startDictation(v: View) {
         start_button.isEnabled = false
         default_dictation_button.isEnabled = false
@@ -39,6 +45,9 @@ class MainActivity : AppCompatActivity() {
         mSpeechRecognizer.startListening(intent)
     }
 
+    /**
+     * Method to print the current default recognition service in the textview
+     */
     fun showCurrentDefaultDictation(v: View) {
         val serviceComponent: String = Settings.Secure.getString(
             applicationContext.contentResolver,
@@ -58,6 +67,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Required subclass of RecognitionListener to determine how to deal with callbacks
+     * from RecognitionService.
+     */
     inner class TestListener : RecognitionListener {
         override fun onReadyForSpeech(p0: Bundle?) {
             Log.d("TestListener", "onReadyForSpeech called.")
@@ -102,6 +115,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        /**
+         * Set recognition results from [bundle] to dictation textview.
+         */
         private fun setResultsText(bundle: Bundle) {
             val results = bundle.get(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<*>
             val text = results[0].toString()
