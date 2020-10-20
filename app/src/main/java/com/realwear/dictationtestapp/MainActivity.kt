@@ -9,6 +9,7 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_main.*
@@ -74,6 +75,7 @@ class MainActivity : AppCompatActivity() {
     inner class TestListener : RecognitionListener {
         override fun onReadyForSpeech(p0: Bundle?) {
             Log.d("TestListener", "onReadyForSpeech called.")
+            Toast.makeText(applicationContext, "Listening...", Toast.LENGTH_SHORT).show()
         }
 
         override fun onBeginningOfSpeech() {
@@ -93,6 +95,7 @@ class MainActivity : AppCompatActivity() {
             default_dictation_button.isEnabled = true
 
             Log.d("TestListener", "onEndOfSpeech called.")
+            Toast.makeText(applicationContext, "Dictation finished.", Toast.LENGTH_SHORT).show()
         }
 
         override fun onError(p0: Int) {
